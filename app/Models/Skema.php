@@ -19,7 +19,7 @@ class Skema extends Model
         'nomor_skema',
         'nama_skema',
         'dokumen_skkni',
-        'daftar_id_uk',
+        'daftar_id_uk', //json
         'persyaratan_skema',
     ];
 
@@ -42,6 +42,12 @@ class Skema extends Model
         $idArray = is_array($this->daftar_id_uk) ? $this->daftar_id_uk : json_decode($this->daftar_id_uk, true);
         return UK::whereIn('id_uk', $idArray ?? [])->get();
     }
+
+    public function eventSkemas()
+    {
+        return $this->hasMany(EventSkema::class, 'id_skema');
+    }
+
 
     protected static function boot()
     {
